@@ -7,7 +7,7 @@ abstract class AbstractEntity
 {
     protected \DateTime $dateCreation;
 
-    public function __construct(?int $id = null, ?\DateTime $dateCreation = null)
+    public function __construct(?\DateTime $dateCreation = null)
     {
         $this->dateCreation = $dateCreation ?? new \DateTime();
     }
