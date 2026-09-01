@@ -7,7 +7,7 @@ namespace App\Repository;
 use App\Entity\Commande;
 use PDO;
 
-final class CommandeRepository
+final class CommandeRepository implements CommandeRepositoryInterface
 {
     public function __construct(private readonly PDO $pdo)
     {
