@@ -1,13 +1,15 @@
 {
-    "name": "malang-kiya-ciss/gestiondebibliothquephppoosq-lite",
-   "autoload": {
+    "name": "mkcdigitallab/heritage",
+    "description": "Projet pédagogique e-commerce PHP POO PostgreSQL",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo": "*",
+        "ext-pdo_pgsql": "*"
+    },
+    "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "App\\Controller\\": "src/http",
-            "App\\Core\\": "src/Core",
-            "App\\Entity\\": "src/Entity",
-            "App\\Service\\": "src/Service",
-            "App\\Repository\\": "src/Model"
+            "App\\": "src/"
         }
     },
     "authors": [
@@ -15,6 +17,5 @@
             "name": "Malang Kiya Cisse",
             "email": "papac8443@gmail.com"
         }
-    ],
-    "require": {}
+    ]
 }
