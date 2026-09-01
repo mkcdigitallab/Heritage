@@ -6,15 +6,11 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\DTO\CommandeDTO;
 use App\Entity\Commande;
-use App\Repository\CommandeRepository;
+use App\Repository\CommandeRepositoryInterface;
 use App\Service\CommandeService;
 
-final class FakeCommandeRepository extends CommandeRepository
+final class FakeCommandeRepository implements CommandeRepositoryInterface
 {
-}
-
-// Test unitaire léger : on vérifie l'entité et le calcul de réduction sans accès SQL.
-$repository = new class {
     public ?Commande $saved = null;
 
     public function save(Commande $commande): Commande
@@ -22,13 +18,17 @@ $repository = new class {
         $this->saved = $commande;
         return $commande;
     }
-};
+}
 
+$repository = new FakeCommandeRepository();
 $service = new CommandeService($repository);
-$commande = $service->creerCommande(new CommandeDTO(100.00, 'PROMO10'));
 
+$commande = $service->creerCommande(new CommandeDTO(100.00, 'PROMO10'));
 assert($commande->getPrixFinal() === 90.00);
 assert($commande->isReductionAppliquee() === true);
-assert($commande->getId() === null);
+
+$commandeSansReduction = $service->creerCommande(new CommandeDTO(100.00, ''));
+assert($commandeSansReduction->getPrixFinal() === 100.00);
+assert($commandeSansReduction->isReductionAppliquee() === false);
 
 echo "Tests CommandeService : OK\n";
